@@ -1,5 +1,7 @@
 {
   "name": "TryLens.AI",
-  "description": "TryLens is an AI-powered virtual try-on tool that lets you place any product into your photos instantly. Built on Google DeepMind’s Gemini 2.5 Flash Image model, TryLens blends products like shoes, watches, and furniture into real scenes with photorealistic lighting, perspective, and shadows. Unlike traditional editors, TryLens uses natural language controls — just upload a product and a photo, choose placement and scale, and watch Gemini generate ecommerce-ready previews in seconds. Perfect for brands, creators, and online stores, TryLens makes it easy to create personalized product mockups, lifestyle shots, and marketing visuals at scale.",
-  "requestFramePermissions": []
+  "description": "TryLens.AI is an AI-powered virtual try-on tool that lets you place any product into photos instantly. Built on Google's Gemini model, TryLens blends products like shoes, watches, and furniture into real scenes with photorealistic lighting, perspective, and shadows. Unlike traditional editors, TryLens uses intuitive controls—just upload a product and a photo, choose placement and scale, and watch Gemini generate ecommerce-ready previews in seconds. Perfect for brands, creators, and online stores, TryLens makes it easy to create personalized product mockups, lifestyle shots, and marketing visuals at scale.",
+  "requestFramePermissions": [
+    "camera"
+  ]
 }

@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Virtual Try-On</title>
+    <title>TryLens.AI</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="index.css" />
     <script type="module" src="index.tsx"></script>
   <script type="importmap">
@@ -27,52 +27,67 @@
       </div>
 
       <div class="header">
-        <h1>Virtual Try-On</h1>
-        <p>Create realistic product previews in seconds.</p>
+        <h1>TryLens.AI</h1>
+        <p>Photorealistic AI previews, effortlessly.</p>
       </div>
 
       <div class="file-upload-container">
-        <label for="product-upload" id="product-label">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.38 3.46 16 2a4 4 0 0 0-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"></path></svg>
-          <div>
-            <strong>Upload Product</strong>
-            <small>Drag & drop or click to select</small>
-          </div>
-        </label>
+        <div class="upload-area">
+          <label for="product-upload" id="product-label" class="upload-label">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.38 3.46 16 2a4 4 0 0 0-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"></path></svg>
+            <div>
+              <strong>Upload Product</strong>
+              <small>Click or drag & drop</small>
+            </div>
+          </label>
+          <button class="take-photo-button" data-target="product-upload" aria-label="Take photo of product">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+          </button>
+        </div>
         <input type="file" id="product-upload" accept="image/*" hidden />
       </div>
       
       <div class="guidance-connector"></div>
 
       <div class="file-upload-container">
-        <label for="photo-upload" id="photo-label">
-           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-          <div>
-            <strong>Upload Photo</strong>
-            <small>Drag & drop or click to select</small>
-          </div>
-        </label>
+        <div class="upload-area">
+          <label for="photo-upload" id="photo-label" class="upload-label">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            <div>
+              <strong>Upload Scene</strong>
+              <small>Click or drag & drop</small>
+            </div>
+          </label>
+          <button class="take-photo-button" data-target="photo-upload" aria-label="Take a selfie or photo of scene">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+          </button>
+        </div>
         <input type="file" id="photo-upload" accept="image/*" hidden />
       </div>
 
       <div class="guidance-connector"></div>
 
+       <div class="presets-container">
+        <button class="preset-button" id="lifestyle-preset">Lifestyle</button>
+        <button class="preset-button" id="subtle-preset">Subtle</button>
+      </div>
+
       <div class="controls-group">
         <div class="control-container">
           <label for="scale-slider" class="control-label">
             <span>Scale</span>
-            <span id="scale-value" class="control-value">50%</span>
+            <span id="scale-value" class="control-value">30%</span>
           </label>
-          <input type="range" id="scale-slider" min="0" max="100" value="50" />
+          <input type="range" id="scale-slider" min="10" max="50" value="30" />
         </div>
   
         <div class="control-container">
           <label for="placement-select" class="control-label">Placement</label>
           <div class="select-wrapper">
             <select id="placement-select" name="placement">
-              <option value="left">Left</option>
               <option value="center">Center</option>
-              <option value="right">Right</option>
+              <option value="bottom-left">Bottom-Left</option>
+              <option value="bottom-right">Bottom-Right</option>
               <option value="floor">Floor</option>
             </select>
           </div>
@@ -81,20 +96,59 @@
         <div class="control-container">
           <label for="shadow-slider" class="control-label">
             <span>Shadow</span>
-            <span id="shadow-value" class="control-value">20%</span>
+            <span id="shadow-value" class="control-value">0.4</span>
           </label>
-          <input type="range" id="shadow-slider" min="0" max="100" value="20" />
+          <input type="range" id="shadow-slider" min="0" max="1" step="0.1" value="0.4" />
         </div>
       </div>
 
       <button id="generate-button" class="action-button" disabled>
-        <span class="button-text">Generate Try-On</span>
+        <span class="button-text">Generate</span>
         <div class="spinner" style="display: none;"></div>
       </button>
 
       <div id="output-container" class="output-container" style="display: none;">
         <h2>Result</h2>
-        <div id="output-grid" class="output-grid"></div>
+        
+        <div id="comparison-container" class="comparison-container">
+          <img id="before-image" class="comparison-image" src="" alt="Original Photo">
+          <img id="after-image" class="comparison-image" src="" alt="Generated Try-On">
+          <div id="comparison-handle" class="comparison-handle"><div class="handle-arrows"></div></div>
+          <input type="range" id="comparison-slider" class="comparison-slider" min="0" max="100" value="50">
+        </div>
+        
+        <div id="variants-container" class="variants-container"></div>
+        
+        <button id="download-button" class="action-button download-button" style="display: none;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          Download Result
+        </button>
+      </div>
+
+      <div class="history-section">
+        <button id="history-toggle" class="history-toggle">
+          <span>History</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div id="history-container" class="history-container" style="display: none;">
+          <p class="history-empty">No recent generations.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Camera Modal -->
+    <div id="camera-modal" class="camera-modal" style="display: none;">
+      <div class="camera-modal-content">
+        <video id="camera-video" autoplay playsinline></video>
+        <canvas id="camera-canvas" style="display:none;"></canvas>
+        <div class="camera-controls">
+          <button id="camera-cancel" class="camera-button">Cancel</button>
+          <button id="camera-capture" class="camera-shutter" aria-label="Capture photo"></button>
+          <button id="camera-confirm" class="camera-button" disabled>
+            <span class="button-text">Use Photo</span>
+            <div class="spinner" style="display: none;"></div>
+          </button>
+        </div>
       </div>
     </div>
   </body>
