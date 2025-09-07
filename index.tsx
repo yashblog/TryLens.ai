@@ -36,9 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const photoLabel = document.getElementById('photo-label')?.querySelector('strong');
   const scaleSlider = document.getElementById('scale-slider') as HTMLInputElement;
   const scaleValue = document.getElementById('scale-value') as HTMLSpanElement;
-  const shadowSlider = document.getElementById('shadow-slider') as HTMLInputElement;
-  const shadowValue = document.getElementById('shadow-value') as HTMLSpanElement;
-  const placementSelect = document.getElementById('placement-select') as HTMLSelectElement;
   const generateButton = document.getElementById('generate-button') as HTMLButtonElement;
   const buttonText = generateButton.querySelector('.button-text') as HTMLSpanElement;
   const spinner = generateButton.querySelector('.spinner') as HTMLDivElement;
@@ -52,10 +49,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const comparisonHandle = document.getElementById('comparison-handle') as HTMLDivElement;
   const variantsContainer = document.getElementById('variants-container') as HTMLDivElement;
   const downloadButton = document.getElementById('download-button') as HTMLButtonElement;
-
-  // Preset buttons
-  const lifestylePreset = document.getElementById('lifestyle-preset') as HTMLButtonElement;
-  const subtlePreset = document.getElementById('subtle-preset') as HTMLButtonElement;
   
   // Camera elements
   const cameraModal = document.getElementById('camera-modal') as HTMLDivElement;
@@ -80,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let history: HistoryItem[] = [];
   
   const originalProductLabel = productLabel?.textContent || 'Upload Product';
-  const originalPhotoLabel = photoLabel?.textContent || 'Upload Scene';
+  const originalPhotoLabel = photoLabel?.textContent || 'Upload Your Photo';
 
   const checkFormValidity = () => {
     const isProductUploaded = productUpload.files && productUpload.files.length > 0;
@@ -101,23 +94,12 @@ document.addEventListener('DOMContentLoaded', () => {
   productUpload?.addEventListener('change', () => handleFileChange(productUpload, productLabel, originalProductLabel));
   photoUpload?.addEventListener('change', () => handleFileChange(photoUpload, photoLabel, originalPhotoLabel));
 
-  const updateSliderValue = (slider: HTMLInputElement, valueEl: HTMLSpanElement, isFloat = false) => {
-    valueEl.textContent = isFloat ? parseFloat(slider.value).toFixed(1) : `${slider.value}%`;
+  const updateSliderValue = (slider: HTMLInputElement, valueEl: HTMLSpanElement) => {
+    valueEl.textContent = `${slider.value}%`;
   }
 
   scaleSlider?.addEventListener('input', () => updateSliderValue(scaleSlider, scaleValue));
-  shadowSlider?.addEventListener('input', () => updateSliderValue(shadowSlider, shadowValue, true));
   
-  const applyPreset = (scale: number, shadow: number) => {
-      scaleSlider.value = String(scale);
-      shadowSlider.value = String(shadow);
-      scaleSlider.dispatchEvent(new Event('input'));
-      shadowSlider.dispatchEvent(new Event('input'));
-  }
-  
-  lifestylePreset?.addEventListener('click', () => applyPreset(40, 0.6));
-  subtlePreset?.addEventListener('click', () => applyPreset(15, 0.3));
-
   // --- Camera Logic ---
   const setCameraConfirmLoadingState = (isLoading: boolean) => {
     if (!cameraConfirm || !cameraConfirmText || !cameraConfirmSpinner) return;
@@ -291,15 +273,19 @@ document.addEventListener('DOMContentLoaded', () => {
       const photoPart = await fileToGenerativePart(photoUpload.files[0]);
       originalPhotoSrc = photoPart.url;
 
-      const prompt = `Base image: The second image provided (the photo). Overlay image: The first image provided (the product).
+      const prompt = `Task: Virtual Try-On.
 
-Task: Insert the product from the overlay image into the base image at the ${placementSelect.value} area.
-Scale the product to about ${scaleSlider.value}% of the photo's width.
-Match the scene’s lighting, color temperature, and perspective.
-Add realistic shadows with an intensity of about ${shadowSlider.value} (where 0.0 is none and 1.0 is dark).
-Do not modify the person’s face or the background.
-Output a natural-looking, high-resolution composite suitable for a premium ecommerce preview.
-Generate 3 variants with slight rotation differences.`;
+Base image: The second image provided (the user's photo).
+Product image: The first image provided (the clothing item).
+
+Instructions:
+1. Identify the main person in the base image.
+2. Replace the clothing worn by the person (e.g., dress, shirt, top) with the clothing from the product image.
+3. The new clothing should be scaled to approximately ${scaleSlider.value}% of the person's torso height to ensure a good fit.
+4. Realistically adapt the product to the person's body shape, posture, and pose.
+5. Match the lighting, shadows, and color temperature of the base image to create a seamless, photorealistic result.
+6. Do not modify the person's face, body, or the background. Only change the clothing.
+7. Generate 3 variants with slight variations in fit and drape.`;
 
       const response = await ai.models.generateContent({
         model: 'gemini-2.5-flash-image-preview',
@@ -358,6 +344,5 @@ Generate 3 variants with slight rotation differences.`;
   applyTheme(preferredTheme as 'light' | 'dark');
   checkFormValidity();
   updateSliderValue(scaleSlider, scaleValue);
-  updateSliderValue(shadowSlider, shadowValue, true);
   renderHistory(); // Initial render for empty state
 });

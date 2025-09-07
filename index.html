@@ -28,7 +28,7 @@
 
       <div class="header">
         <h1>TryLens.AI</h1>
-        <p>Photorealistic AI previews, effortlessly.</p>
+        <p>See yourself in new styles, instantly.</p>
       </div>
 
       <div class="file-upload-container">
@@ -37,7 +37,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.38 3.46 16 2a4 4 0 0 0-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"></path></svg>
             <div>
               <strong>Upload Product</strong>
-              <small>Click or drag & drop</small>
+              <small>e.g., a dress or shirt</small>
             </div>
           </label>
           <button class="take-photo-button" data-target="product-upload" aria-label="Take photo of product">
@@ -54,7 +54,7 @@
           <label for="photo-upload" id="photo-label" class="upload-label">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
             <div>
-              <strong>Upload Scene</strong>
+              <strong>Upload Your Photo</strong>
               <small>Click or drag & drop</small>
             </div>
           </label>
@@ -67,38 +67,13 @@
 
       <div class="guidance-connector"></div>
 
-       <div class="presets-container">
-        <button class="preset-button" id="lifestyle-preset">Lifestyle</button>
-        <button class="preset-button" id="subtle-preset">Subtle</button>
-      </div>
-
       <div class="controls-group">
         <div class="control-container">
           <label for="scale-slider" class="control-label">
-            <span>Scale</span>
+            <span>Fit Adjustment</span>
             <span id="scale-value" class="control-value">30%</span>
           </label>
           <input type="range" id="scale-slider" min="10" max="50" value="30" />
-        </div>
-  
-        <div class="control-container">
-          <label for="placement-select" class="control-label">Placement</label>
-          <div class="select-wrapper">
-            <select id="placement-select" name="placement">
-              <option value="center">Center</option>
-              <option value="bottom-left">Bottom-Left</option>
-              <option value="bottom-right">Bottom-Right</option>
-              <option value="floor">Floor</option>
-            </select>
-          </div>
-        </div>
-        
-        <div class="control-container">
-          <label for="shadow-slider" class="control-label">
-            <span>Shadow</span>
-            <span id="shadow-value" class="control-value">0.4</span>
-          </label>
-          <input type="range" id="shadow-slider" min="0" max="1" step="0.1" value="0.4" />
         </div>
       </div>
 
